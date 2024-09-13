@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        EditText realvalor = findViewById(R.id.editTextNumbeReal);
+        EditText input = findViewById(R.id.editTextNumbeReal);
         Button button = findViewById(R.id.button);
         TextView textView = findViewById(R.id.resultText);
 
@@ -28,16 +29,16 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-            //Capturar Real
-            Double real = Double.parseDouble(realvalor.getText().toString());
-            //calculo
-                Double valorfinal = real/5.62;
-
-            //Adicionar um texto no campo textView no xml
-            textView.setText(String.format("Seu dinheiro vale %.2f dolares",valorfinal));
-            }
-        });
+            public void onClick(View view) {
+                //validador de campo
+                if(input.getText().toString().equals("")){
+                    Toast.makeText(view.getContext(), "Campos Vazios!", Toast.LENGTH_SHORT).show();
+                }else{
+                    double real = Double.parseDouble(input.getText().toString());
+                    input.setText("");
+                    textView.setText(String.format("$ %.2f", real / 5.55));
+                }
+        }});
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
