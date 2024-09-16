@@ -28,31 +28,53 @@
             android:layout_width="match_parent"
             android:layout_height="71dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="monospace"
+            android:fontFamily="@font/adlam_display"
             android:gravity="center"
             android:text="Conversor de Móedas"
             android:textColor="@color/yellow"
             android:textSize="25dp" />
+
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valor em R$" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Valor em real"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="20dp"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editTextNumbeReal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:hintTextAppearance="@font/adlam_display"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
         <RadioGroup
             android:id="@+id/radioOptions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/adlam_display"
+                android:text="Dólar"
+                android:textSize="20sp" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/adlam_display"
+                android:text="Euro"
+                android:textSize="20sp" />
 
         </RadioGroup>
         <Button
@@ -63,7 +85,8 @@
             android:backgroundTint="@color/yellow"
             android:textColor="@color/white"
             android:text="Converter"
-            android:textSize="25dp" />
+            android:textSize="25dp"
+            android:fontFamily="@font/adlam_display"/>
 
         <TextView
             android:id="@+id/resultText"
