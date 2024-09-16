@@ -40,15 +40,20 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //validador de campo
-                if(input.getText().toString().equals("")){
+                if(input.getText().toString().equals("")) {
                     Toast.makeText(view.getContext(), "Campos Vazios!", Toast.LENGTH_SHORT).show();
-                }else{
+                }else if (radioButton.getText().equals("Dólar")){
                     double real = Double.parseDouble(input.getText().toString());
                     input.setText("");
                     textView.setText(String.format("$ %.2f", real / 5.55));
+                }else {
+                    double real = Double.parseDouble(input.getText().toString());
+                    input.setText("");
+                    textView.setText(String.format("$ %.2f", real / 6.13));
                 }
-        }});
+            }
+        });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
