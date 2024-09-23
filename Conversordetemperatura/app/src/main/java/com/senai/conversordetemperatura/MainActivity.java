@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
                 }else if (radioButton.getText().equals("Fahrenheit")){
                     double c = Double.parseDouble(input.getText().toString());
                     input.setText("");
-                    textView.setText(String.format("$ %f", c * 1.8 + 32 ));
+                    textView.setText(String.format("F %2.f", c * 1.8 + 32 ));
                 }else {
                     double c = Double.parseDouble(input.getText().toString());
                     input.setText("");
-                    textView.setText(String.format("$ %f", c + 273 ));
+                    textView.setText(String.format("K %2.f", c + 273 ));
                 }
 
             }});
