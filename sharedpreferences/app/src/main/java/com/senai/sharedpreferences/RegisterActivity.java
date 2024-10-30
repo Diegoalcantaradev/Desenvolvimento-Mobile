@@ -13,8 +13,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
+import com.senai.sharedpreferences.controllers.StudentController;
 import com.senai.sharedpreferences.entities.Student;
-import com.senai.sharedpreferences.entities.database.DatabaseHelper;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText cadastroNome,cadastroEmail,cadastroSenha;
     private Button btnCadastrar, btnloginvoltar;
 
-    private DatabaseHelper databaseHelper = new DatabaseHelper(new ArrayList<>());
+    private TextInputLayout layoutEmail;
+    private StudentController studentController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,20 +34,33 @@ public class RegisterActivity extends AppCompatActivity {
         cadastroEmail = findViewById(R.id.cadastroEmail);
         cadastroSenha = findViewById(R.id.cadastroSenha);
         cadastroNome = findViewById(R.id.cadastroNome);
-        btnCadastrar = findViewById(R.id.btnCadastrar);
+        btnCadastrar = findViewById(R.id.btnRegister);
         btnloginvoltar = findViewById(R.id.btnloginvoltar);
+        layoutEmail = findViewById(R.id.layoutEmail);
 
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                long i = 0;
-                databaseHelper.saveObject(
-                        new Student(i++,
-                                cadastroNome.getText().toString(),
-                                cadastroEmail.getText().toString(),
-                                cadastroSenha.getText().toString()
-                                ));
-                Snackbar.make(view,"Estudante cadastrado com sucesso!",Snackbar.LENGTH_SHORT).show();
+                Student student = new Student(
+                        null,
+                        cadastroNome.getText().toString(),
+                        cadastroEmail.getText().toString(),
+                        cadastroSenha.getText().toString()
+                        );
+                try{
+                    studentController=new StudentController(RegisterActivity.this);
+                    if(studentController.checkEmail(cadastroEmail.getText().toString())){
+                        layoutEmail.setError("Email já cadastrado!");
+                    }else{
+                        layoutEmail.setError(null);
+                        Snackbar.make(view, studentController.save(student),Snackbar.LENGTH_SHORT).show();
+                        inputName.setText("");
+                        inputEmail.setText("");
+                        inputPass.setText("");
+                    }
+
+                }catch (Exception e){}
             }
         });
         btnloginvoltar.setOnClickListener(new View.OnClickListener() {

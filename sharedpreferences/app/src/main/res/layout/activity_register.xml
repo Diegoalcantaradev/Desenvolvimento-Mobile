@@ -27,7 +27,7 @@
         tools:layout_editor_absoluteY="299dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textcadastroNome"
+        android:id="@+id/layoutEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="30px"
@@ -82,7 +82,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnCadastrar"
+        android:id="@+id/btnRegister"
         android:layout_width="168dp"
         android:layout_height="66dp"
         android:backgroundTint="@color/blue"
@@ -102,4 +102,5 @@
         android:textSize="20sp"
         tools:layout_editor_absoluteX="121dp"
         tools:layout_editor_absoluteY="696dp" />
+    
 </androidx.constraintlayout.widget.ConstraintLayout>

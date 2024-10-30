@@ -16,7 +16,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.senai.sharedpreferences.controllers.StudentController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputEmail;
     private EditText inputPass;
     private Button btnLogin;
+    private Button btnRegister;
     private SwitchMaterial switchMaterial;
+    private StudentController studentController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,22 +56,39 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editor = sp.edit();
-                if (switchMaterial.isChecked()){
 
-                editor.putString(getString(R.string.prefs_email), inputEmail.getText().toString());
-                editor.putString(getString(R.string.prefs_pass), inputPass.getText().toString());
-                editor.putBoolean(getString(R.string.prefs_switch),switchMaterial.isChecked());
-            }else{
-                    editor.remove(getString(R.string.prefs_email));
-                    editor.remove(getString(R.string.prefs_pass));
-                    editor.remove(getString(R.string.prefs_switch));
+                studentController= new StudentController(MainActivity.this);
+                boolean login = studentController.authenticantion(inputEmail.getText().toString(),inputPass.getText().toString());
+                
+                if(login){
+                    editor = sp.edit();
+                    if (switchMaterial.isChecked()){
+
+                        editor.putString(getString(R.string.prefs_email), inputEmail.getText().toString());
+                        editor.putString(getString(R.string.prefs_pass), inputPass.getText().toString());
+                        editor.putBoolean(getString(R.string.prefs_switch),switchMaterial.isChecked());
+                    }else{
+                        editor.remove(getString(R.string.prefs_email));
+                        editor.remove(getString(R.string.prefs_pass));
+                        editor.remove(getString(R.string.prefs_switch));
+                    }
+                    editor.apply();
+                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                    startActivity(i);
+                    finish();//Finalizar a execução da activity atual
+                }else{
+                    Snackbar.make(v, "Usuário ou senha inválidos", Snackbar.LENGTH_SHORT).show();
                 }
-                editor.apply();
-                Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(i);
-                finish();//Finalizar a execução da activity atual
             }
         });
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this,RegisterActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        }
     }
-}
